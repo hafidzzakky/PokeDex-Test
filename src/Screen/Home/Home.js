@@ -5,8 +5,8 @@ import {
 } from '../../Actions';
 import {
   ListPoke,
-  HeaderList
-} from '../../Components'
+} from '../../Components';
+import { Button } from 'react-bootstrap';
 
 import './Home.css';
 class Home extends Component {
@@ -35,6 +35,10 @@ class Home extends Component {
     this.props.getAllPokemon(this.state.index, this.state.resultPerRequest)
   }
 
+  DetailPokemon = (data) => {
+    console.log('iki data pokemone', data)
+  }
+
   render() {
     return (
       <div className="container">
@@ -43,13 +47,11 @@ class Home extends Component {
         <div className='container-content'>
           {this.props.listDetailPokemonLoading ? <p>Loading . . . </p> : 
             this.props.listDetailPokemon.map(item => (
-              <ListPoke {...item} key={item.name} />
+              <ListPoke {...item} key={item.name}/>
             ))
           }
         </div>
-        <button onClick={() => this.loadMore()}>
-          Load More
-        </button>
+        <Button variant="primary" onClick={() => this.loadMore()}>Primary</Button>
       </div>
     )
   }

@@ -7,6 +7,7 @@
     padding: .5em .8em;
     margin:10px;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .pokemon-name{
@@ -20,8 +21,8 @@
 }
 
 .photo-pokemon-container{
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     border-radius: 8px;
     background-color: #ebebeb;
     margin: .4em;

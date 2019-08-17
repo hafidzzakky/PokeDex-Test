@@ -1,0 +1,35 @@
+.body-detail-container {
+    display: flex;
+    /* flex-direction: row; */
+}
+
+.container-absolute-pokemon-types{
+    position: absolute;
+    top: 45px;
+    right: 10px;
+}
+
+.body-detail-container .pokemon-name-container{
+    margin-left: 10px;
+    flex: 1
+}
+
+.info-pokemon{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ability-container{
+    border-color: #dbdbdb;
+    border-top: 0.5px solid #dbdbdb;
+    padding-top: 10px;
+}
+
+.button-footer{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    color: #4399c5;
+    font-weight: 500;
+    cursor: pointer;
+}
