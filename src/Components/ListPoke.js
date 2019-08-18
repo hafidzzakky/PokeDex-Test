@@ -3,6 +3,7 @@ import './ListPoke.css';
 import {
   ModalDetail
 } from '../Components';
+import {Link} from 'react-router-dom';
 import { Col } from 'react-bootstrap';
 
 const typeColor = (data) => {
@@ -57,7 +58,9 @@ export const ListPoke = props => {
             <img className="pokemon-image" alt={props.name} src={props.sprites.front_default} />
           </div>
           <div>
-            <span className="pokemon-name">#{props.id} {props.name}</span>
+            <Link to={`/pokemon/${props.name}/`} className="pokemon-name">
+              #{props.id} {props.name}
+            </Link>
             <br/>
             {props.types.map(att => (
               <span className="atribute-pokemon-container" style={{backgroundColor: typeColor(att.type.name)}} key={att.type.url}>

@@ -9,6 +9,7 @@ import {
 import {
   ListPoke,
 } from '../../Components';
+import {withRouter} from "react-router-dom";
 import * as $ from 'jquery'
 import { Button, Row, Col } from 'react-bootstrap';
 
@@ -175,4 +176,4 @@ const mapDispatchToProps = {
   getSpeciesByName
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
