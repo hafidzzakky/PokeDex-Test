@@ -4,9 +4,10 @@
 }
 
 .container-absolute-pokemon-types{
-    position: absolute;
+    /* position: absolute;
     top: 45px;
-    right: 10px;
+    right: 10px; */
+    margin-top: 30px;
 }
 
 .body-detail-container .pokemon-name-container{
@@ -21,7 +22,7 @@
 
 .ability-container{
     border-color: #dbdbdb;
-    border-top: 0.5px solid #dbdbdb;
+    /* border-top: 0.5px solid #dbdbdb; */
     padding-top: 10px;
 }
 
@@ -32,4 +33,29 @@
     color: #4399c5;
     font-weight: 500;
     cursor: pointer;
+}
+
+.stat-title{
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.stat-container{
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.photo-pokemon-detail-container{
+    height: 200px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #ebebeb;
+    margin: .4em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }

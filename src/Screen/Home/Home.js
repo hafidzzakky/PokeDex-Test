@@ -1,73 +1,178 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  getAllPokemon
+  getAllPokemon,
+  getAllTypes,
+  filterPokemonByTypes,
+  getSpeciesByName
 } from '../../Actions';
 import {
   ListPoke,
 } from '../../Components';
-import { Button } from 'react-bootstrap';
+import * as $ from 'jquery'
+import { Button, Row, Col } from 'react-bootstrap';
 
 import './Home.css';
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       index: 0,
-      resultPerRequest : 30
+      resultPerRequest : 30,
+      filter: true
     };
   }
   
+  componentWillMount(){
+    this.props.getAllPokemon(this.props.listDetailPokemon.length, this.state.resultPerRequest);
+    this.props.getAllTypes();
+  }
+
   componentDidMount(){
-    console.log('this.props.match.params.id : ')
-    this.props.getAllPokemon(this.state.index, this.state.resultPerRequest);
-    this.setState({
-      index: 30
-    })
+    $(window).scroll(function () {
+      if(this.state.filter){
+        if ($(window).scrollTop() === $(document).height() - $(window).height() && !this.props.listDetailPokemonLoading) {
+          this.props.getAllPokemon(this.props.listDetailPokemon.length, this.state.resultPerRequest)
+        }
+      }else{
+        return false;
+      }
+    }.bind(this));
   }
 
-  loadMore = () => {
-    console.log(this.state)
-    this.setState({
-      index: this.state.index + this.state.resultPerRequest
-    })
-    console.log('jajal : ', this.state)
-    this.props.getAllPokemon(this.state.index, this.state.resultPerRequest)
+  getDetailSpecies = (pokemonName) => {
+    this.props.getSpeciesByName(pokemonName);
   }
 
-  DetailPokemon = (data) => {
-    console.log('iki data pokemone', data)
+  typeColor = (data) => {
+    if(data === 'normal'){
+      return '#afafaf';
+    }else if (data === 'bug'){
+    return '#8B9814'
+    }else if (data === 'dark'){
+      return '#4B382A'
+    }else if (data === 'dragon'){
+      return '#7562D5'
+    }else if (data ==='electric'){
+      return '#F3CA58'
+    }else if (data === 'fairy'){
+      return '#D680D7'
+    }else if (data === 'fighting'){
+      return '#79351E'
+    }else if (data === 'fire'){
+      return '#D84708'
+    }else if (data === 'flying'){
+      return '#5A72CC'
+    }else if (data === 'ghost'){
+      return '#5E5EA4'
+    }else if (data === 'grass'){
+      return '#7CC245'
+    }else if (data === 'ground'){
+      return '#CEBE70'
+    }else if (data === 'ice'){
+      return '#79D8F4'
+    }else if (data === 'poison'){
+      return '#8F468F'
+    }else if (data === 'psychic'){
+      return '#ED4880'
+    }else if (data === 'rock'){
+      return '#9E863E'
+    }else if (data === 'steel'){
+      return '#C1C1CD'
+    }else if (data === 'water'){
+      return '#4A9CF0'
+    }else if (data === 'shadow'){
+      return '#17132a'
+    }else if (data === 'unknown'){
+      return '#6d6d6d'
+    }
+  }
+
+  showOnlyThisType = (data) => {
+    console.log(data)
+    this.setState({
+      filter: data === 'All' ? true : false
+    }, this.props.filterPokemonByTypes(this.props.listDetailPokemon, data));
+    
+  }
+
+  renderContent = () => {
+    if(this.props.listFilteredDetailPokemon.length > 0){
+      return this.props.listFilteredDetailPokemon.map((pokemon) => {
+        return (
+          <ListPoke {...pokemon} key={pokemon.name}/>
+        );
+      })
+    }
   }
 
   render() {
     return (
       <div className="container">
-        <h1>Pokedex</h1>
-        <hr/>
-        <div className='container-content'>
-          {this.props.listDetailPokemonLoading ? <p>Loading . . . </p> : 
-            this.props.listDetailPokemon.map(item => (
-              <ListPoke {...item} key={item.name}/>
-            ))
-          }
+        <div style={{borderBottomColor: '#f7f7f7', borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
+          <h1>Pokedex</h1>
         </div>
-        <Button variant="primary" onClick={() => this.loadMore()}>Primary</Button>
+        <span className="pokemon-name" style={{marginTop: 15, marginBottom: 10}}>Type Pokemon </span>
+        {this.props.listTypePokemonLoading ? <p>Loading Type . . . </p> : 
+          <Row>
+            <Col>
+              <div className={{margin: 10}}>
+                <Button size="sm" 
+                onClick={() => this.showOnlyThisType('All')}
+                style={{
+                  marginLeft: 4, 
+                  fontSize: 12, 
+                  backgroundColor: '#eb3b5a',   
+                  borderWidth: 0
+                }}>
+                  All
+                </Button>
+                {this.props.listTypePokemon.map(item => (
+                  <Button size="sm" 
+                  onClick={() => this.showOnlyThisType(item.name)}
+                  style={{
+                    marginLeft: 4, 
+                    fontSize: 12, 
+                    backgroundColor: this.typeColor(item.name),   
+                    borderWidth: 0
+                  }} key={item.url} >
+                    {item.name}
+                  </Button>
+                ))}
+              </div>
+            </Col>
+          </Row>
+        }
+        <div className='container-content'>
+        <Row>
+          {this.renderContent()}
+        </Row>
+        {this.props.listDetailPokemonLoading ? <p>Loading Pokemon.... </p> : false}
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  listPokemon         : state.AllPokemon.data,
-  listPokemonError    : state.AllPokemon.error,
-  listPokemonLoading  : state.AllPokemon.loading,
+  DetailSpecies        : state.DetailPokemon.dataSpecies,
+  DetailSpeciesError   : state.DetailPokemon.errorDataSpecies,
+  DetailSpeciesLoading : state.DetailPokemon.loadingDataSpecies,
   listDetailPokemon        : state.DetailPokemon.data,
+  listFilteredDetailPokemon        : state.DetailPokemon.filteredPokemon,
   listDetailPokemonError   : state.DetailPokemon.error,
-  listDetailPokemonLoading : state.DetailPokemon.loading
+  listDetailPokemonLoading : state.DetailPokemon.loading,
+  listTypePokemon         : state.AllTypePokemon.data,
+  listTypePokemonError    : state.AllTypePokemon.error,
+  listTypePokemonLoading  : state.AllTypePokemon.loading,
+
 })
 
 const mapDispatchToProps = {
-  getAllPokemon
+  getAllPokemon,
+  getAllTypes,
+  filterPokemonByTypes,
+  getSpeciesByName
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -7,7 +7,6 @@
     padding: .5em .8em;
     margin:10px;
     flex-direction: row;
-    cursor: pointer;
 }
 
 .pokemon-name{
