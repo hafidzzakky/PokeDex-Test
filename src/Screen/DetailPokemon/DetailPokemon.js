@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {withRouter} from "react-router-dom"
 
@@ -11,7 +10,7 @@ class DetailPokemon extends Component {
   render() {
     return (
       <div>
-        
+      https://github.com/v4iv/pokedex
       </div>
     )
   }
