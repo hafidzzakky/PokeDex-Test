@@ -52,7 +52,7 @@ const ModalDetail = (props) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    console.log(props)
+    
     return (
       <>
         <Button size="sm" style={{marginLeft: 4, fontSize: 12}} variant="primary" onClick={handleShow}>

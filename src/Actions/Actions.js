@@ -11,6 +11,9 @@ import {
     GET_SPECIES_POKEMON,
     GET_SPECIES_POKEMON_SUCCESS,
     GET_SPECIES_POKEMON_FAIL,
+    GET_INFO_POKEMON,
+    GET_INFO_POKEMON_SUCCESS,
+    GET_INFO_POKEMON_FAIL,
     FILTER_POKEMON
 } from './Types';
 
@@ -59,7 +62,7 @@ const getDetailPokemon = (data) => {
     };
 };
 
-export const getSpeciesByName = (pokemonName) => {
+const getSpeciesByName = (pokemonName) => {
     return(dispatch) => {
         dispatch({ type: GET_SPECIES_POKEMON });
         //post method
@@ -71,7 +74,7 @@ export const getSpeciesByName = (pokemonName) => {
         })
         .then(response => response.json())
         .then((data) => {
-            dispatch({ type: GET_SPECIES_POKEMON_SUCCESS, payload: data.results });
+            dispatch({ type: GET_SPECIES_POKEMON_SUCCESS, payload: data });
             console.log(data)
         })
         .catch((error) => {
@@ -80,6 +83,29 @@ export const getSpeciesByName = (pokemonName) => {
         });
     };
 }
+
+export const getInfoPokemonByName = (pokemonName) => {
+    return(dispatch) => {
+        dispatch({ type: GET_INFO_POKEMON });
+        //post method
+        fetch(`${baselink}pokemon-species/${pokemonName}/`, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        .then(response => response.json())
+        .then((data) => {
+            dispatch({ type: GET_INFO_POKEMON_SUCCESS, payload: data });
+            dispatch(getSpeciesByName(data.name));  
+        })
+        .catch((error) => {
+            dispatch({ type : GET_INFO_POKEMON_FAIL })
+            console.log('Error Get Data Info  Pokemon')
+        });
+    };
+}
+
 
 export const getAllTypes = () => {
     return(dispatch) => {

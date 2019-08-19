@@ -4,7 +4,7 @@ import {
   getAllPokemon,
   getAllTypes,
   filterPokemonByTypes,
-  getSpeciesByName
+  getInfoPokemonByName
 } from '../../Actions';
 import {
   ListPoke,
@@ -39,10 +39,6 @@ class Home extends Component {
         return false;
       }
     }.bind(this));
-  }
-
-  getDetailSpecies = (pokemonName) => {
-    this.props.getSpeciesByName(pokemonName);
   }
 
   typeColor = (data) => {
@@ -173,7 +169,7 @@ const mapDispatchToProps = {
   getAllPokemon,
   getAllTypes,
   filterPokemonByTypes,
-  getSpeciesByName
+  getInfoPokemonByName
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
