@@ -54,7 +54,6 @@ const getDetailPokemon = (data) => {
         .then(response => response.json())
         .then((data) => {
             dispatch({ type: GET_DETAIL_POKEMON_SUCCESS, payload: data });
-            console.log(data)
         })
         .catch((error) => {
             dispatch({ type : GET_DETAIL_POKEMON_FAIL })

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import './index.css';
-import App from './Screen//Home/Home';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore, compose} from 'redux';
 import thunk from 'redux-thunk';

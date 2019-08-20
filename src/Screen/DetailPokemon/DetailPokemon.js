@@ -11,7 +11,6 @@ import { Button, Alert, ProgressBar, Row, Col } from 'react-bootstrap';
 import './DetailPokemon.css';
 class DetailPokemon extends Component {
   componentDidMount(){
-      console.log(this.props)
       this.props.getInfoPokemonByName(this.props.match.params.pokemon);
   }
 
