@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 import {
   getAllPokemon,
   getAllTypes,
-  filterPokemonByTypes,
-  getInfoPokemonByName
+  filterPokemonByTypes
 } from '../../Actions';
 import {
   ListPoke,
 } from '../../Components';
 import {withRouter} from "react-router-dom";
 import * as $ from 'jquery'
-import { Button, Row, Col } from 'react-bootstrap';
+import { Button, Row, Col, Alert } from 'react-bootstrap';
 
 import './Home.css';
 class Home extends Component {
@@ -103,6 +102,26 @@ class Home extends Component {
     }
   }
 
+  renderErrorContent = () => {
+    if(this.props.listDetailPokemonError){
+      return(
+        <Alert variant='danger'>
+          {this.props.listDetailPokemonError}
+        </Alert>
+      );
+    }
+  }
+
+  renderErrorType = () => {
+    if(this.props.listTypePokemonError){
+      return(
+        <Alert variant='danger'>
+          {this.props.listTypePokemonError}
+        </Alert>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -137,10 +156,12 @@ class Home extends Component {
             </Col>
           </Row>
         }
+        {this.renderErrorType()}
         <div className='container-content'>
         <Row>
           {this.renderContent()}
         </Row>
+        {this.renderErrorContent()}
         {this.props.listDetailPokemonLoading ? 
           <div style={{display: 'flex', justifyContent: 'center'}}>
             <p>Loading Pokemon.... </p>
@@ -152,9 +173,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  DetailSpecies        : state.DetailPokemon.dataSpecies,
-  DetailSpeciesError   : state.DetailPokemon.errorDataSpecies,
-  DetailSpeciesLoading : state.DetailPokemon.loadingDataSpecies,
   listDetailPokemon        : state.DetailPokemon.data,
   listFilteredDetailPokemon        : state.DetailPokemon.filteredPokemon,
   listDetailPokemonError   : state.DetailPokemon.error,
@@ -169,7 +187,6 @@ const mapDispatchToProps = {
   getAllPokemon,
   getAllTypes,
   filterPokemonByTypes,
-  getInfoPokemonByName
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))

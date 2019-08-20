@@ -7,7 +7,7 @@ import {
 import {
   getInfoPokemonByName
 } from '../../Actions';
-import { Button, Image, ProgressBar, Row, Col } from 'react-bootstrap';
+import { Button, Alert, ProgressBar, Row, Col } from 'react-bootstrap';
 import './DetailPokemon.css';
 class DetailPokemon extends Component {
   componentDidMount(){
@@ -25,13 +25,22 @@ class DetailPokemon extends Component {
     this.props.history.goBack();
   }
 
+  renderErrorContent = () => {
+    if(this.props.pokemonInfoError){
+      return(
+        <Alert variant='danger'>
+          {this.props.pokemonInfoError}
+        </Alert>
+      );
+    }
+  }
+
+
   render() {
     const { 
       pokemonSpeciesData, 
       pokemonSpeciesLoading, 
-      pokemonSpeciesError,
       pokemonInfoData,
-      pokemonInfoError,
       pokemonInfoLoading
     } = this.props;
     return (
@@ -140,6 +149,7 @@ class DetailPokemon extends Component {
               </Row>
             </div>
         }
+        {this.renderErrorContent()}
       </div>
     )
   }

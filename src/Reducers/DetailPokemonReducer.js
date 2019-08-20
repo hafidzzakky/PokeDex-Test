@@ -11,6 +11,17 @@ import {
     FILTER_POKEMON
 } from '../Actions/Types';
 
+const containsObject = (obj, list) => {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i] === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 const INITIAL_STATE = {
     data: [],
     dataSpecies : {
