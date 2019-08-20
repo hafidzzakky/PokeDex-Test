@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import './index.css';
 import App from './Screen//Home/Home';
 import {Provider} from 'react-redux';
@@ -8,6 +8,9 @@ import {applyMiddleware, createStore, compose} from 'redux';
 import thunk from 'redux-thunk';
 import Reducers from './Reducers'
 import * as serviceWorker from './serviceWorker';
+import {
+    Header
+} from './Components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './Screen/Home/Home';
 import DetailPokemon from './Screen/DetailPokemon/DetailPokemon';
@@ -17,11 +20,12 @@ ReactDOM.render(
     <Provider store={Store}>
         <BrowserRouter>
             <div>
-                <div>H1 Header</div>
+                <Header/>
                 <div>
                     <Switch>
                         <Route exact path='/' component={HomePage} />
                         <Route exact path='/pokemon/:pokemon/' component={DetailPokemon} />
+                        <Redirect from='/pokemon' to='/'/>
                     </Switch>
                 </div>
             </div>

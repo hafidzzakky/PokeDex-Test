@@ -1,8 +1,5 @@
 import React from 'react';
 import './ListPoke.css';
-import {
-  ModalDetail
-} from '../Components';
 import {Link} from 'react-router-dom';
 import { Col } from 'react-bootstrap';
 
@@ -59,7 +56,7 @@ export const ListPoke = props => {
           </div>
           <div>
             <Link to={`/pokemon/${props.name}/`} className="pokemon-name">
-              #{props.id} {props.name}
+              {props.name}
             </Link>
             <br/>
             {props.types.map(att => (
@@ -67,8 +64,6 @@ export const ListPoke = props => {
                 {att.type.name}
               </span>
             ))}
-            <br/>
-            <ModalDetail {...props} />
           </div>
         </div>
       </Col>

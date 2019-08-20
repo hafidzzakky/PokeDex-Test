@@ -33,7 +33,7 @@ class Home extends Component {
     $(window).scroll(function () {
       if(this.state.filter){
         if ($(window).scrollTop() === $(document).height() - $(window).height() && !this.props.listDetailPokemonLoading) {
-          this.props.getAllPokemon(this.props.listDetailPokemon.length, this.state.resultPerRequest)
+          this.props.getAllPokemon(this.props.listDetailPokemon.length, this.state.resultPerRequest);
         }
       }else{
         return false;
@@ -106,9 +106,6 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <div style={{borderBottomColor: '#f7f7f7', borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
-          <h1>Pokedex</h1>
-        </div>
         <span className="pokemon-name" style={{marginTop: 15, marginBottom: 10}}>Type Pokemon </span>
         {this.props.listTypePokemonLoading ? <p>Loading Type . . . </p> : 
           <Row>
@@ -144,7 +141,10 @@ class Home extends Component {
         <Row>
           {this.renderContent()}
         </Row>
-        {this.props.listDetailPokemonLoading ? <p>Loading Pokemon.... </p> : false}
+        {this.props.listDetailPokemonLoading ? 
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <p>Loading Pokemon.... </p>
+          </div>  : false}
         </div>
       </div>
     )

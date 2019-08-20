@@ -75,7 +75,6 @@ const getSpeciesByName = (pokemonName) => {
         .then(response => response.json())
         .then((data) => {
             dispatch({ type: GET_SPECIES_POKEMON_SUCCESS, payload: data });
-            console.log(data)
         })
         .catch((error) => {
             dispatch({ type : GET_SPECIES_POKEMON_FAIL })
@@ -88,7 +87,7 @@ export const getInfoPokemonByName = (pokemonName) => {
     return(dispatch) => {
         dispatch({ type: GET_INFO_POKEMON });
         //post method
-        fetch(`${baselink}pokemon-species/${pokemonName}/`, {
+        fetch(`${baselink}pokemon/${pokemonName}/`, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
